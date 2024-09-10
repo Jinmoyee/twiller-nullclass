@@ -6,7 +6,7 @@ const useLoggedinuser = () => {
   const [loggedinuser, setloggedinuser] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/loggedinuser?email=${email}`)
+    fetch(`https://twiller-nullclass.onrender.com/loggedinuser?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)
