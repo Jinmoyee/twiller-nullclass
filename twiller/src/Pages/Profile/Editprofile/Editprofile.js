@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Modal } from "@mui/material";
-import Button from "@mui/material";
+import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -37,7 +37,7 @@ function Editchild({ dob, setdob }) {
         open={open}
         onClose={handleclose}
         aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-descriptiom"
+        aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 300, height: 300 }}>
           <div className="text">
@@ -71,6 +71,22 @@ const Editprofile = ({ user, loggedinuser }) => {
   const [website, setwebsite] = useState("");
   const [open, setopen] = useState(false);
   const [dob, setdob] = useState("");
+
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        const locationString = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+        setlocation(locationString);
+      }, (error) => {
+        console.error("Error getting location:", error);
+        // Handle error appropriately
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
   const handlesave = () => {
     const editinfo = {
       name,
@@ -91,6 +107,7 @@ const Editprofile = ({ user, loggedinuser }) => {
         console.log("done", data);
       });
   };
+
   return (
     <div>
       <button
@@ -104,7 +121,7 @@ const Editprofile = ({ user, loggedinuser }) => {
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-descriptiom"
+        aria-describedby="modal-modal-description"
       >
         <Box style={style} className="modal">
           <div className="header">
@@ -122,7 +139,7 @@ const Editprofile = ({ user, loggedinuser }) => {
               id="fullWidth"
               variant="filled"
               onChange={(e) => setname(e.target.value)}
-              deafultValue={loggedinuser[0]?.name ? loggedinuser[0].name : ""}
+              defaultValue={loggedinuser[0]?.name ? loggedinuser[0].name : ""}
             />
             <TextField
               className="text-field"
@@ -131,19 +148,22 @@ const Editprofile = ({ user, loggedinuser }) => {
               id="fullWidth"
               variant="filled"
               onChange={(e) => setbio(e.target.value)}
-              deafultValue={loggedinuser[0]?.bio ? loggedinuser[0].bio : ""}
+              defaultValue={loggedinuser[0]?.bio ? loggedinuser[0].bio : ""}
             />
-            <TextField
-              className="text-field"
-              fullWidth
-              label="Location"
-              id="fullWidth"
-              variant="filled"
-              onChange={(e) => setlocation(e.target.value)}
-              deafultValue={
-                loggedinuser[0]?.location ? loggedinuser[0].location : ""
-              }
-            />
+            <div className="location-field">
+              <TextField
+                className="text-field"
+                fullWidth
+                label="Location"
+                id="fullWidth"
+                variant="filled"
+                onChange={(e) => setlocation(e.target.value)}
+                value={location} // Use `value` here instead of `defaultValue`
+              />
+              <Button onClick={getCurrentLocation} variant="contained" color="primary" className="location-btn">
+                Current
+              </Button>
+            </div>
             <TextField
               className="text-field"
               fullWidth
@@ -151,7 +171,7 @@ const Editprofile = ({ user, loggedinuser }) => {
               id="fullWidth"
               variant="filled"
               onChange={(e) => setwebsite(e.target.value)}
-              deafultValue={
+              defaultValue={
                 loggedinuser[0]?.website ? loggedinuser[0].website : ""
               }
             />

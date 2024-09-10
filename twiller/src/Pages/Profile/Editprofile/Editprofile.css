@@ -149,3 +149,13 @@
   .last-section>.last-btn:hover {
     background-color: #b4b7b9
   }
+
+  .location-field {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .location-btn {
+    padding: 2px;
+  }

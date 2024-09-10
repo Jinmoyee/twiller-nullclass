@@ -157,11 +157,19 @@
 
   .subInfo {
     display: flex;
-    align-items: center;
-    gap: 5px;
+    gap: 10rem;
   }
 
   .link {
     color: var(--twitter-color);
     cursor: pointer;
+  }
+
+  .icon-loc {
+    padding-right: 5px;
+    /* padding-top: 5px; */
+  }
+
+  a {
+    text-decoration: none;
   }
