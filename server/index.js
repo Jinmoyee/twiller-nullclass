@@ -111,6 +111,7 @@ async function run() {
       user.dailyPosts = 0;
       user.lastPostDate = new Date(0); // Default date for the first post
       const result = await usercollection.insertOne(user);
+      localStorage.setItem('currentUserId', result.insertedId);
       res.send(result);
     });
 
