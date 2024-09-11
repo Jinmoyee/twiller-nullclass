@@ -9,6 +9,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 
 const Posts = ({ p }) => {
   const { name, username, photo, post, profilephoto } = p;
+  // console.log(p.name)
   return (
     <div className="post">
       <div className="post__avatar">
