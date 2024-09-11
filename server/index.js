@@ -127,6 +127,16 @@ async function run() {
       res.send(user);
     });
 
+    app.get("/usersId", async (req, res) => {
+      try {
+        const users = await usercollection.find().toArray();
+        const userIds = users.map(user => user.userId); // Extract only userId
+        res.send(userIds);
+      } catch (error) {
+        res.status(500).send({ error: "An error occurred while fetching user IDs" });
+      }
+    });
+
     // Update user profile
     app.patch("/userupdate/:email", async (req, res) => {
       const filter = { email: req.params.email };
