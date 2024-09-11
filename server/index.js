@@ -130,7 +130,7 @@ async function run() {
     app.get("/usersId", async (req, res) => {
       try {
         const users = await usercollection.find().toArray();
-        const userIds = users.map(user => user.userId); // Extract only userId
+        const userIds = users.map(user => user.userId || user._id); // Extract only userId
         res.send(userIds);
       } catch (error) {
         res.status(500).send({ error: "An error occurred while fetching user IDs" });
