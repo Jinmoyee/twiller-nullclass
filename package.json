@@ -1,0 +1,30 @@
+{
+  "name": "twitter",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000t\u0000w\u0000i\u0000t\u0000t\u0000e\u0000r\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000",
+  "main": "server/server.js",
+  "scripts": {
+  "dev": "nodemon server/server.js",
+  "start": "node server/server.js"
+},
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.4.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "path": "^0.12.7",
+    "stripe": "^16.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
