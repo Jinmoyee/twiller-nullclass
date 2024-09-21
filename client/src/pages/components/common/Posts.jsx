@@ -8,15 +8,15 @@ const Posts = ({ feedType, username, userId }) => {
     const getPostEndPoint = () => {
         switch (feedType) {
             case 'forYou':
-                return '/api/post/all';
+                return 'https://twiller-nullclass.onrender.com/api/post/all';
             case 'following':
-                return '/api/post/following';
+                return 'https://twiller-nullclass.onrender.com/api/post/following';
             case 'post':
-                return `/api/post/user/${username}`;
+                return `https://twiller-nullclass.onrender.com/api/post/user/${username}`;
             case 'likes':
-                return `/api/post/likes/${userId}`
+                return `https://twiller-nullclass.onrender.com/api/post/likes/${userId}`
             default:
-                return '/api/post/all';
+                return 'https://twiller-nullclass.onrender.com/api/post/all';
         }
     }
 

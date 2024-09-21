@@ -33,7 +33,7 @@ const ProfilePage = () => {
         queryKey: ['userProfile'],
         queryFn: async () => {
             try {
-                const res = await fetch(`/api/users/profile/${username}`);
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/users/profile/${username}`);
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.error || "Failed to fetch user");

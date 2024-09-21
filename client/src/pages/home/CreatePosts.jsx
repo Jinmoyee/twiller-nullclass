@@ -14,7 +14,7 @@ const CreatePost = () => {
     const { mutate: createPost, isPending } = useMutation({
         mutationFn: async ({ text, img }) => {
             try {
-                const res = await fetch("/api/post/create", {
+                const res = await fetch("https://twiller-nullclass.onrender.com/api/post/create", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

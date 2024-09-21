@@ -21,7 +21,7 @@ export default function SignUpPage() {
     const { mutate, isError, isPending, error } = useMutation({
         mutationFn: async ({ email, username, fullName, password }) => {
             try {
-                const res = await fetch('/api/auth/signup', {
+                const res = await fetch('https://twiller-nullclass.onrender.com/api/auth/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, username, fullName, password })
@@ -53,7 +53,7 @@ export default function SignUpPage() {
                 const auth = getAuth(app);
                 const result = await signInWithPopup(auth, provider);
 
-                const res = await fetch("/api/auth/google", {
+                const res = await fetch("https://twiller-nullclass.onrender.com/api/auth/google", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

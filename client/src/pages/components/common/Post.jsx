@@ -19,7 +19,7 @@ const Post = ({ post }) => {
     const { mutate: deletePost, isPending } = useMutation({
         mutationFn: async () => {
             try {
-                const res = await fetch(`/api/post/${post._id}`, {
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/post/${post._id}`, {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -42,7 +42,7 @@ const Post = ({ post }) => {
     const { mutate: likePost, isPending: isLiking } = useMutation({
         mutationFn: async () => {
             try {
-                const res = await fetch(`/api/post/like/${post._id}`, {
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/post/like/${post._id}`, {
                     method: 'POST',
                 });
                 const data = await res.json();
@@ -76,7 +76,7 @@ const Post = ({ post }) => {
     const { mutate: commentPost, isPending: isCommenting } = useMutation({
         mutationFn: async () => {
             try {
-                const res = await fetch(`/api/post/comment/${post._id}`, {
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/post/comment/${post._id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

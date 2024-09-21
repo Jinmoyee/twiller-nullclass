@@ -52,7 +52,7 @@ const SubscriptionPage = () => {
             const stripe = await stripePromise;
 
             // Send selectedPlan to your backend to create a Checkout session
-            const res = await fetch('/api/stripe/checkout', {
+            const res = await fetch('https://twiller-nullclass.onrender.com/api/stripe/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

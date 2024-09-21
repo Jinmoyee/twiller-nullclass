@@ -13,7 +13,7 @@ const NotificationPage = () => {
         queryKey: ['notifications'],
         queryFn: async () => {
             try {
-                const res = await fetch("/api/notification")
+                const res = await fetch("https://twiller-nullclass.onrender.com/api/notification")
                 const data = await res.json()
                 if (!res.ok) {
                     throw new Error(data.error || "Failed to fetch notifications")
@@ -28,7 +28,7 @@ const NotificationPage = () => {
     const { mutate: deleteNotifications } = useMutation({
         mutationFn: async () => {
             try {
-                const res = await fetch("/api/notification", {
+                const res = await fetch("https://twiller-nullclass.onrender.com/api/notification", {
                     method: "DELETE",
                 });
                 const data = await res.json();

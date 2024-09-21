@@ -6,7 +6,7 @@ const userProfile = () => {
     const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
         mutationFn: async (formData) => {
             try {
-                const res = await fetch(`/api/users/update`, {
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/users/update`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ export default function useFollow() {
     const { mutate: follow } = useMutation({
         mutationFn: async (userId) => {
             try {
-                const res = await fetch(`/api/users/follow/${userId}`, {
+                const res = await fetch(`https://twiller-nullclass.onrender.com/api/users/follow/${userId}`, {
                     method: 'POST',
                 })
                 const data = await res.json()

@@ -21,7 +21,7 @@ export default function Sidebar() {
         mutationFn: async () => {
             try {
                 // Simulate a server request
-                const res = await fetch("/api/auth/logout", {
+                const res = await fetch("https://twiller-nullclass.onrender.com/api/auth/logout", {
                     method: 'POST',
                 })
                 const data = await res.json()
