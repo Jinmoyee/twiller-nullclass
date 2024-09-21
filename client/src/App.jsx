@@ -25,29 +25,34 @@ export default function App() {
     queryKey: ['authUser'],
     queryFn: async () => {
       try {
-        const res = await fetch('https://twiller-nullclass.onrender.com/api/auth/me')
-        const data = await res.json()
+        const res = await fetch('https://twiller-nullclass.onrender.com/api/auth/me', {
+          credentials: 'include', // Ensure credentials (cookies) are sent in the request
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
         if (data.error) {
-          return null
+          return null;
         }
         if (!res.ok) {
-          throw new Error(data.error || 'Failed to fetch user data')
+          throw new Error(data.error || 'Failed to fetch user data');
         }
-        // console.log("Auth User", data)
-        return data
+        return data;
       } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
       }
     }
-  })
+  });
 
   if (isLoading) {
     return (
       <div className="h-screen flex justify-center items-center bg-neutral" role="status">
         <LoadingSpinner size='lg' />
       </div>
-    )
+    );
   }
+
   return (
     <div data-theme="pastel" className='flex justify-around'>
       {authUser && <Sidebar />}
@@ -69,5 +74,5 @@ export default function App() {
       {authUser && <RightPanel />}
       <Toaster />
     </div>
-  )
+  );
 }
