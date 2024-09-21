@@ -14,7 +14,7 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(cors({
-    origin: 'https://twiiller.netlify.app',
+    origin: 'https://twiller-nullclass.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
