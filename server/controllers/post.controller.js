@@ -3,62 +3,90 @@ import Post from "../models/post.model.js"
 import User from "../models/user.model.js"
 import { v2 as cloudinary } from "cloudinary"
 
+const isInTimeWindow = () => {
+    const currentTime = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST offset in milliseconds
+    const istTime = new Date(currentTime.getTime() + istOffset);
+
+    const start = new Date(istTime);
+    start.setHours(10, 0, 0, 0); // 10:00 AM IST
+
+    const end = new Date(istTime);
+    end.setHours(10, 30, 0, 0); // 10:30 AM IST
+
+    return istTime >= start && istTime <= end;
+};
+
 export const createPost = async (req, res) => {
     try {
         const { text } = req.body;
         let { img } = req.body;
         const userId = req.user._id.toString();
-
-        // Find the user
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Check if user has exceeded tweet limit
+        const followingCount = user.following.length;
         const currentDate = new Date();
-        const subscriptionExpiration = user.subscriptionExpiration;
 
-        // Check if the subscription has expired (optional)
+        const subscriptionExpiration = user.subscriptionExpiration;
         if (subscriptionExpiration && currentDate > subscriptionExpiration) {
             return res.status(403).json({ error: 'Your subscription has expired. Please renew your plan to continue posting.' });
         }
 
-        if (user.tweetCount >= user.tweetLimit) {
-            return res.status(403).json({ error: `You have reached your tweet limit for the ${user.subscriptionPlan} plan. Upgrade your plan or wait for the next period.` });
+        if (followingCount === 0) {
+            if (!isInTimeWindow()) {
+                return res.status(403).json({ error: 'You can only post between 10:00 AM and 10:30 AM IST.' });
+            }
         }
 
-        // Validate input (text or image must be provided)
+        else if (followingCount === 2) {
+            const postsToday = await Post.countDocuments({
+                user: userId,
+                createdAt: {
+                    $gte: new Date(currentDate.setHours(0, 0, 0, 0)),
+                    $lt: new Date(currentDate.setHours(23, 59, 59, 999))
+                }
+            });
+
+            if (postsToday >= 2) {
+                return res.status(403).json({ error: 'You have reached your 2 posts limit for today.' });
+            }
+        }
+
+        else if (followingCount > 10) {
+            // No restrictions
+        }
+
+        if (user.tweetCount >= user.tweetLimit) {
+            return res.status(403).json({ error: `You have reached your tweet limit for the ${user.subscriptionPlan} plan.` });
+        }
+
         if (!text && !img) {
             return res.status(400).json({ error: 'Please provide text or an image' });
         }
 
-        // If there's an image, upload it to Cloudinary
         if (img) {
             const uploadImg = await cloudinary.uploader.upload(img);
             img = uploadImg.secure_url;
         }
 
-        // Create a new post
         const newPost = new Post({
             user: userId,
             text: text,
             img: img,
         });
 
-        // Save the post in the database
         await newPost.save();
-
-        // Increment the user's tweet count after successfully creating a post
         user.tweetCount += 1;
         await user.save();
-
-        // Respond with the new post
         res.status(201).json(newPost);
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 };
+
 
 
 export const deletePost = async (req, res) => {

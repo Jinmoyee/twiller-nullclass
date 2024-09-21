@@ -21,12 +21,11 @@ import Success from './pages/subscription/pages/Success';
 import Error from './pages/subscription/pages/Error';
 
 export default function App() {
-  const apiUrl = import.meta.env.VITE_API_URL;
   const { data: authUser, isLoading } = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
       try {
-        const res = await fetch(`${apiUrl}/api/auth/me`)
+        const res = await fetch('/api/auth/me')
         const data = await res.json()
         if (data.error) {
           return null
@@ -34,7 +33,7 @@ export default function App() {
         if (!res.ok) {
           throw new Error(data.error || 'Failed to fetch user data')
         }
-        console.log("Auth User", data)
+        // console.log("Auth User", data)
         return data
       } catch (error) {
         throw new Error(error)

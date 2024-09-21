@@ -15,14 +15,13 @@ import toast from 'react-hot-toast'
 import twitter from "../../../../public/twitter.png"
 
 export default function Sidebar() {
-    const apiUrl = import.meta.env.VITE_API_URL;
     const queryClient = useQueryClient()
 
     const { mutate: loggedOut, isError, isPending, error } = useMutation({
         mutationFn: async () => {
             try {
                 // Simulate a server request
-                const res = await fetch(`${apiUrl}/api/auth/logout`, {
+                const res = await fetch("/api/auth/logout", {
                     method: 'POST',
                 })
                 const data = await res.json()
@@ -106,7 +105,7 @@ export default function Sidebar() {
                                 <img src={userData.profileImg || "/avatar-placeholder.png"} alt="" className='rounded-full w-12 h-12 border-2 border-black' />
                             </div>
                             <div>
-                                <p className='w-[90%] overflow-hidden truncate font-medium hidden lg:block'>{userData.fullName}</p>
+                                <p className='w-[80%] overflow-hidden truncate font-medium hidden lg:block'>{userData.fullName}</p>
                                 <p className='w-[80%] overflow-hidden truncate hidden lg:block'>@{userData.username}</p>
                             </div>
                         </div>

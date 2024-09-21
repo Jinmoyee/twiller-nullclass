@@ -7,7 +7,6 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import app from '../../context/firebase';
 
 export default function SignUpPage() {
-    const apiUrl = import.meta.env.VITE_API_URL;
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -22,7 +21,7 @@ export default function SignUpPage() {
     const { mutate, isError, isPending, error } = useMutation({
         mutationFn: async ({ email, username, fullName, password }) => {
             try {
-                const res = await fetch(`${apiUrl}/api/auth/signup`, {
+                const res = await fetch('/api/auth/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, username, fullName, password })
@@ -54,7 +53,7 @@ export default function SignUpPage() {
                 const auth = getAuth(app);
                 const result = await signInWithPopup(auth, provider);
 
-                const res = await fetch(`${apiUrl}/api/auth/google`, {
+                const res = await fetch("/api/auth/google", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -137,11 +136,11 @@ export default function SignUpPage() {
                         <input type="password" className="grow" placeholder='Password' name='password' value={formData.password} onChange={handleInputChange} />
                     </label>
 
-                    <button onClick={handleGoogleSignup} className='btn bg-green-500 w-[80%] md:w-[70%] text-white hover:bg-green-400'>
+                    <button type="submit" onClick={handleGoogleSignup} className='btn bg-green-500 w-[80%] md:w-[70%] text-white hover:bg-green-400'>
                         {googleLoading ? "Loading..." : "Sign Up with Google"}
                     </button>
 
-                    <button className='btn btn-neutral w-[80%] md:w-[70%] text-white'>
+                    <button type="submit" className='btn btn-neutral w-[80%] md:w-[70%] text-white'>
                         {isPending ? "Loading..." : "Sign Up"}
                     </button>
                 </form>

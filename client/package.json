@@ -18,7 +18,9 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.26.0",
-    "react-twitter-embed": "^4.0.4"
+    "react-twitter-embed": "^4.0.4",
+    "scriptjs": "^2.5.9",
+    "twitter": "file:.."
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

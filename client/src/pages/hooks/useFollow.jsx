@@ -3,13 +3,12 @@ import React from 'react'
 import toast from 'react-hot-toast'
 
 export default function useFollow() {
-    const apiUrl = import.meta.env.VITE_API_URL;
     const queryClient = useQueryClient()
 
     const { mutate: follow } = useMutation({
         mutationFn: async (userId) => {
             try {
-                const res = await fetch(`${apiUrl}/api/users/follow/${userId}`, {
+                const res = await fetch(`/api/users/follow/${userId}`, {
                     method: 'POST',
                 })
                 const data = await res.json()

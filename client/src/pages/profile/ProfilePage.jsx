@@ -17,7 +17,6 @@ import toast from "react-hot-toast";
 import userProfile from "../hooks/userProfile";
 
 const ProfilePage = () => {
-    const apiUrl = import.meta.env.VITE_API_URL;
     const [coverImg, setCoverImg] = useState(null);
     const [profileImg, setProfileImg] = useState(null);
     const [feedType, setFeedType] = useState("posts");
@@ -34,7 +33,7 @@ const ProfilePage = () => {
         queryKey: ['userProfile'],
         queryFn: async () => {
             try {
-                const res = await fetch(`${apiUrl}/api/users/profile/${username}`);
+                const res = await fetch(`/api/users/profile/${username}`);
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.error || "Failed to fetch user");
