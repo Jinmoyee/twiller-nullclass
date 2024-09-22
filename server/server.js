@@ -8,15 +8,15 @@ import dotenv from "dotenv";
 import connectMongoDb from "./db/mongoDbConnect.js";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
-import cors from "cors";
+// import cors from "cors";
 // import path from "path";
 
 dotenv.config();
 const app = express();
-app.use(cors({
-    origin: 'https://66ef8688085bf418b8cb9d49--twiiller.netlify.app',  // Allow your Netlify frontend origin
-    credentials: true  // Allow credentials (cookies, headers, etc.)
-}));
+// app.use(cors({
+//     origin: 'https://66ef8688085bf418b8cb9d49--twiiller.netlify.app',  // Allow your Netlify frontend origin
+//     credentials: true  // Allow credentials (cookies, headers, etc.)
+// }));
 app.use(express.json({ limit: "5mb" }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

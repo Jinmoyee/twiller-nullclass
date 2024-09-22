@@ -26,7 +26,6 @@ export default function App() {
     queryFn: async () => {
       try {
         const res = await fetch('https://twiller-nullclass.onrender.com/api/auth/me', {
-          credentials: 'include', // Ensure credentials (cookies) are sent in the request
           headers: {
             'Content-Type': 'application/json',
           },
