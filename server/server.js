@@ -13,7 +13,10 @@ import cors from "cors";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ['https://twiller-nullclass.vercel.app'],  // Your frontend URL
+    credentials: true  // Allow credentials (cookies)
+}));
 app.use(express.json({ limit: "5mb" }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
